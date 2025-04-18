@@ -5,6 +5,7 @@ public class Programm {
 
         ArrayHandler handler = new ArrayHandler(10);
         handler.insert(5);
+        handler.insert(5);
         handler.insert(8);
         handler.insert(2);
         handler.insert(10);
@@ -13,9 +14,11 @@ public class Programm {
         System.out.print("Массив: ");
         handler.printArray();
 
-        System.out.println("Найден элемент 10 в индексе: " + handler.find(10));
-        handler.delete(10);
-        System.out.print("После удаления элемента 10: ");
+        var ak=handler.find(5);
+        for(int i =0;i<ak.size();i++)
+        System.out.println("Найден элемент 5 в индексе: " + ak.get(i));
+        handler.delete(5);
+        System.out.print("После удаления элемента 5: ");
         handler.printArray();
 
         System.out.println("Максимальное значение: " + handler.max());

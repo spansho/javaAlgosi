@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArrayHandler {
     private int[] array;
     private int size;
@@ -18,26 +21,36 @@ public class ArrayHandler {
     }
 
     // Метод для поиска элемента по значению
-    public int find(int key) {
+    public List<Integer> find(int key) {
+        List<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             if (array[i] == key) {
-                return i;  // Возвращает индекс найденного элемента
+                indexes.add(i);
             }
         }
-        return -1;  // Если элемент не найден
+        return indexes;
     }
 
     // Метод для удаления элемента по ключу и сдвига оставшихся
     public void delete(int key) {
-        int index = find(key);
-        if (index != -1) {
-            for (int i = index; i < size - 1; i++) {
-                array[i] = array[i + 1];  // Сдвигаем элементы
-            }
-            size--;
-        } else {
+        List<Integer> indexes = find(key);
+
+        if (indexes.isEmpty()) {
             System.out.println("Элемент не найден.");
+            return;
         }
+
+        // Удаляем элементы с конца, чтобы индексы не смещались
+        int shift = 0;
+        for (int i = 0; i < size; i++) {
+            if (array[i] == key) {
+                shift++;
+            } else if (shift > 0) {
+                array[i - shift] = array[i];
+            }
+        }
+
+        size -= shift;
     }
 
     // Метод для нахождения максимального элемента
